@@ -1,0 +1,38 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Pico Debug",
+            "type": "cortex-debug",
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/hello-world-of-pi.elf",
+            "request": "launch",
+            // connect to an alreay running OpenOCD instance
+            // "serverType": "external",
+            "servertype": "openocd",
+            // This may need to be arm-none-eabi-gdb depending on your system
+            // "gdbPath": "gdb-multiarch",
+            "gdbPath": "arm-none-eabi-gdb",
+            "device": "RP2040",
+            "configFiles": [
+                "interface/picoprobe.cfg",
+                "target/rp2040.cfg"
+            ],
+            // Connect to an already running OpenOCD instance
+            // "gdbTarget": "localhost:3333",
+            "svdFile": "build/_deps/pico-sdk-src/src/rp2040/hardware_regs/rp2040.svd",
+            "runToMain": true,
+            // Work around for stopping at main on restart
+            "postRestartCommands": [
+                "break main",
+                "continue"
+            ],
+            "searchDir": [
+                "/media/ben/data/dev/home-automation/openocd/tcl"
+            ]
+        }
+    ]
+}
